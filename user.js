@@ -1,5 +1,7 @@
-users = [];
+const {getUsers,updateUser,deleteUser} = require("./UserModel");
+
 const getUserList = (req,res)=>{
+    const users = getUsers();
     res.send(users)
 };
 
@@ -30,19 +32,18 @@ const login = (req,res)=>{
     }
 }
 
-const deleteUser = (req,res)=>{
-    users = users.filter(u => u.email != req.body.email);
-    res.send("delete successfull")
+const deleteU = (req,res)=>{
+    const result = deleteUser(req.body.email)
+    return res.send("delete successfull")
 }
-const updateUser = (req,res)=>{
-    users = users.map(u => {
-       if( u.email == req.body.email)
-       {
-          u.password = req.body.password;
-       }
-       return u;
-    });
-    res.send("update successfull")
+const update = (req,res)=>{
+    const result = updateUser(req.body.email,req.body);
+    if(result){
+        return res.send("update successfull")
+    }else{
+       return res.send("could not update user")
+    }
+   
 }
 
-module.exports = {getUserList,signup,login,deleteUser,updateUser};
+module.exports = {getUserList,signup,login,deleteU,update};
