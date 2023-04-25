@@ -1,3 +1,4 @@
+const userModel = require("./model/user");
 const {getUsers,updateUser,deleteUser} = require("./UserModel");
 
 const getUserList = (req,res)=>{
@@ -8,8 +9,10 @@ const getUserList = (req,res)=>{
 const signup = (req,res)=>{
     if(req.body.name != null && req.body.email != null && req.body.password != null)
     {
-        users.push(req.body);
-        res.send("signup successfull")
+        // create new user
+        const user = new userModel( req.body);
+        user.save();
+        res.send("user signup successfull");
     }
     else{
         res.send("Please enter required fileds")
