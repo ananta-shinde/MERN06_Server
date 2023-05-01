@@ -2,7 +2,7 @@ const db = require("../conn");
 //schema for users
 const userSchema = new db.Schema({
     name : String,
-    email : {type : String,default:"demo@com"},
+    email : {type : String, required:true},
     password : Number   
 })
 
